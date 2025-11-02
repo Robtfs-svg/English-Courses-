@@ -1,0 +1,66 @@
+/* Estilos base */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f8f9fa; 
+}
+
+/* ------------------------------------------- */
+/* Nueva SECCIÓN contenedora del banner (Ocupa todo el ancho) */
+/* ------------------------------------------- */
+.welcome-banner {
+    width: 100%;
+    padding: 30px 0; /* Espacio arriba y abajo de la sección */
+    background-color: #f8f9fa; /* Color de fondo de la sección principal */
+}
+
+/* Contenedor principal del efecto (El banner rojo que contiene el texto) */
+.marquee-container {
+    width: 100%;
+    max-width: 1200px; /* Ancho máximo para el banner dentro de la sección */
+    margin: 0 auto; /* Centrar el contenedor en la sección */
+    overflow: hidden; /* Oculta el desplazamiento horizontal de la animación */
+    background-color: #dc3545; /* Fondo rojo (similar a Bootstrap danger) */
+    padding: 10px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+/* La tira de texto que se va a animar */
+.marquee-content {
+    display: inline-block;
+    white-space: nowrap; /* Evita que el texto se salte de línea */
+    padding-left: 100%; /* Empieza el texto fuera de la vista a la derecha */
+    
+    /* Estilos de texto */
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    /* Animación */
+    animation: marquee-scroll 15s linear infinite; /* 15s, constante, infinito */
+}
+
+/* Detener la animación al pasar el ratón */
+.marquee-content:hover {
+    animation-play-state: paused;
+}
+
+/* Keyframes: Define cómo se mueve el contenido */
+@keyframes marquee-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Ajuste de tipografía para móviles */
+@media (max-width: 600px) {
+    .marquee-content {
+        font-size: 1.5rem;
+    }
+}

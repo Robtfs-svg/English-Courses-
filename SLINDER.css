@@ -1,0 +1,121 @@
+:root {
+    --rojo-principal: #dc3545; /* Rojo de Bootstrap 'danger' */
+    --blanco-fondo: #f8f9fa; /* Gris muy claro/blanco */
+    --gris-texto: #343a40;
+}
+
+body {
+    background-color: var(--blanco-fondo);
+}
+
+h2 {
+    color: var(--gris-texto);
+    font-weight: 700;
+}
+
+/* 1. Contenedor Principal y Visibilidad */
+.slider-container {
+     /* Oculta las tarjetas que están fuera de la vista */
+    padding: 20px 0;
+    position: relative;
+    max-width: 100%;
+}
+
+/* 2. La Pista del Slider - Contiene todas las tarjetas */
+.slider-track {
+    display: flex;
+    width: calc(150% * 6); /* Suficientemente ancho para todas las tarjetas (6 originales + 3 duplicadas) */
+    animation: slide-scroll 35s linear forwards; /* Animación de 45 segundos, lineal, infinita */
+}
+
+/* Evita que el slider se mueva al pasar el ratón */
+.slider-track:hover {
+    animation-play-state: paused;
+}
+
+/* 3. Estilo de cada Tarjeta de Curso */
+.course-card {
+    flex: 0 0 calc(100% / 3); /* Muestra 3 tarjetas por vista en pantallas grandes */
+    max-width: calc(10% / 3);
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.card {
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Pequeño efecto al pasar el ratón */
+}
+
+.card-header {
+    background-color: var(--rojo-principal) !important;
+    font-weight: 600;
+    border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+    color: var(--rojo-principal) !important;
+    font-weight: 700;
+}
+
+/* Estilo del botón (Rojo y Blanco) */
+.btn-outline-danger {
+    color: var(--rojo-principal);
+    border-color: var(--rojo-principal);
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--rojo-principal);
+    color: white;
+}
+
+/* ================================================= */
+/* 4. KEYFRAMES: La magia de la animación sin JS */
+/* ================================================= */
+
+@keyframes slide-scroll {
+    /* 0% - Muestra las tarjetas originales */
+    0% {
+        transform: translateX(0);
+    }
+    /* 98% - Mueve el carrusel para mostrar hasta la última tarjeta duplicada */
+    100% {
+        /* Desplaza el track hacia la izquierda el ancho de las 6 tarjetas originales. 
+           (6 tarjetas / 9 tarjetas totales) * 100% ≈ -66.66% */
+        transform: translateX(calc(-100% * (7 / 9)));
+    }
+    
+}
+
+/* ================================================= */
+/* 5. MEDIA QUERIES para Responsividad (Bootstrap)  */
+/* ================================================= */
+
+/* En tablets (menos de 992px) - Muestra 2 tarjetas */
+@keyframes slide-scroll {
+    /* 0% - Muestra las tarjetas originales (desde el Curso 1) */
+    0% {
+        transform: translateX(0);
+    }
+    /* AJUSTE CLAVE: Mueve el track el ancho de 2 tarjetas (2/9 del total).
+       Esto hace que la 3ª tarjeta sea la primera visible al terminar. */
+    100% {
+        transform: translateX(calc(-100% * (2 / 9)));
+    }
+} 
+
+/* En móviles (menos de 768px) - Muestra 1 tarjeta */
+@media (max-width: 767.98px) {
+    .course-card {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    /* Ajustamos la animación para que se detenga después de 6 "slides" de 1 tarjeta */
+    @keyframes slide-scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-100% * (6 / 9))); /* Mismo principio, pero mueve el doble de veces */ }
+    }
+}
